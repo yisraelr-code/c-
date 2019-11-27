@@ -3,6 +3,8 @@ namespace targil_2
 {
     class HostingUnit : IComparable
     {
+        private int _hostingUnitKey;
+        private static int stSerialKey = 10000000;
         static public string presentAnnualOrder(bool[,] calander)
         {
             //return string with all the orders from the year!
@@ -28,9 +30,6 @@ namespace targil_2
                 order += (" end 31/12\n");
             return order;
         }
-
-        private static int stSerialKey = 10000000;
-        private int _hostingUnitKey;
         public int HostingUnitKey
         {
             get { return _hostingUnitKey; }
@@ -44,16 +43,16 @@ namespace targil_2
         }
         public override string ToString()
         {
-            return "HostingUnitKey:" + HostingUnitKey + presentAnnualOrder(this.Diary);
+            return "HostingUnitKey: " + HostingUnitKey + presentAnnualOrder(this.Diary);
         }
         public bool ApproveRequest(guestRequest guestReq)
         {
             DateTime temp = guestReq.EntryDate;
-            while (this.Diary[temp.Month, temp.Day] && temp != guestReq.ReleaseDate)
+            while ( (this.Diary[temp.Month, temp.Day]) && (temp != guestReq.RelaeseDate) )
             {
                 temp.AddDays(1);
             }
-            if (temp == guestReq.ReleaseDate)
+            if (temp == guestReq.RelaeseDate)
             {
                 guestReq.IsApproved = true;
                 return true;
@@ -79,10 +78,9 @@ namespace targil_2
         {
             return (float)(GetAnnualBusyDays() * 100 / (31 * 12));
         }
-
         public int CompareTo(object obj)
         {
             return GetAnnualBusyDays().CompareTo(((HostingUnit)obj).GetAnnualBusyDays());
         }
     }
-}
+};
