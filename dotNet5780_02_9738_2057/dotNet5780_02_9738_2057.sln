@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet_2", "DotNet_2.csproj", "{BFF9A598-61CF-440C-8821-B598A0A6B15D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotNet5780_02_9738_2057", "dotNet5780_02_9738_2057.csproj", "{BFF9A598-61CF-440C-8821-B598A0A6B15D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{19C3BE7F-5E53-4C2C-9CD6-409659586CD9}"
 EndProject

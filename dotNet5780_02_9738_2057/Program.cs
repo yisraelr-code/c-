@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace targil_2
+namespace dotNet5780_02_9738_2057
 {
     class Program
     {
@@ -24,27 +24,22 @@ namespace targil_2
         {
             List<Host> lsHosts;
             lsHosts = new List<Host>()
-            {
-                new Host(1, rand.Next(1,4)),
-                new Host(2, rand.Next(1,4)),
-                new Host(3, rand.Next(1,4)),
-                new Host(4, rand.Next(1,4)),
-                new Host(5, rand.Next(1,4))
-            };
-            GuestRequest gs1 = new GuestRequest();
-            GuestRequest gs2 = new GuestRequest();
-            GuestRequest gs3 = new GuestRequest();
+             {
+                 new Host(1, rand.Next(1,5)),
+                 new Host(2, rand.Next(1,5)),
+                 new Host(3, rand.Next(1,5)),
+                 new Host(4, rand.Next(1,5)),
+                 new Host(5, rand.Next(1,5))
+             };
             for (int i = 0; i < 100; i++)
             {
                 foreach (var host in lsHosts)
                 {
-                    if (!gs1.IsApproved)
-                        gs1 = CreateRandomRequest();
-                    if (!gs2.IsApproved)
-                        gs2 = CreateRandomRequest();
-                    if (!gs3.IsApproved)
-                        gs3 = CreateRandomRequest();
-                    switch (rand.Next(1, 3))
+
+                    GuestRequest gs1 = CreateRandomRequest();
+                    GuestRequest gs2 = CreateRandomRequest();
+                    GuestRequest gs3 = CreateRandomRequest();
+                    switch (rand.Next(1, 4))
                     {
                         case 1:
                             host.AssignRequests(gs1);
@@ -74,7 +69,7 @@ namespace targil_2
             float maxVal = dict.Values.Max();
             //get max value key name in dictionary
             long maxKey =
-            dict.FirstOrDefault(x => x.Value == dict.Values.Max()).Key;
+           dict.FirstOrDefault(x => x.Value == dict.Values.Max()).Key;
             //find the Host that its unit has the maximum occupancy percentage
             foreach (var host in lsHosts)
             {
@@ -87,14 +82,13 @@ namespace targil_2
                         host.SortUnits();
                         //print this host detailes
                         Console.WriteLine("**** Details of the Host with the most occupied unit:\n");
-
-
+                        
                         Console.WriteLine(host);
-                        Console.ReadKey();
+                        break;
                     }
                 }
             }
         }
-
     }
 }
+      

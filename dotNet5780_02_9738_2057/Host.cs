@@ -2,7 +2,7 @@
 using System;
 using System.Collections;
 
-namespace targil_2
+namespace dotNet5780_02_9738_2057
 {
     class Host: IEnumerable
     {
@@ -22,7 +22,7 @@ namespace targil_2
             String temp = "Host:"+this.HostKey+"\n";
             foreach (var units in HostingUnitCollection)
             {
-                temp += units.ToString() + "\n";
+                temp += units.ToString() + "\n\n";
             }
             return temp; 
         }

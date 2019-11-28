@@ -1,5 +1,5 @@
 ﻿using System;
-namespace targil_2
+namespace dotNet5780_02_9738_2057
 {
     class HostingUnit : IComparable
     {
@@ -30,7 +30,7 @@ namespace targil_2
                     if (calander[monthl, dayl] && !flag)
                     {
                         flag = true;
-                        order += "\n start:" + (dayl + 1) + "/" + (monthl + 1);
+                        order += "\n start:" + (dayl + 1) + "/" + (monthl + 1)+"   ";
                     }
                     if (!calander[monthl, dayl] && flag)
                     {
@@ -62,7 +62,7 @@ namespace targil_2
                 //change diary to not available at those days
                 for (DateTime temp2 = guestReq.EntryDate; temp2 <= guestReq.ReleaseDate; temp2=temp2.AddDays(1))
                 {
-                    this.Diary[temp.Month - 1, temp.Day - 1] = true;
+                    this.Diary[temp2.Month - 1, temp2.Day - 1] = true;
                 }
                 guestReq.IsApproved = true;
                 return true;
@@ -90,7 +90,7 @@ namespace targil_2
         }
         public int CompareTo(object obj)
         {
-            return GetAnnualBusyDays().CompareTo(((HostingUnit)obj).GetAnnualBusyDays());
+            return -(GetAnnualBusyDays().CompareTo(((HostingUnit)obj).GetAnnualBusyDays()));
         }
     }
 };

@@ -1,6 +1,6 @@
 ﻿
 using System;
-namespace targil_2
+namespace dotNet5780_02_9738_2057
 {
     class GuestRequest
     {
