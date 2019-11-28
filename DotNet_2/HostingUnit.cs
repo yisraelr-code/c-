@@ -3,11 +3,24 @@ namespace targil_2
 {
     class HostingUnit : IComparable
     {
-        private int _hostingUnitKey;
         private static int stSerialKey = 10000000;
+        private int _hostingUnitKey;
+        public int HostingUnitKey
+        {
+            get { return _hostingUnitKey; }
+            private set { _hostingUnitKey = value; }
+        }
+        public bool[,] Diary = new bool[12, 31];
+        
+        //constractor
+        public HostingUnit()
+        {
+            HostingUnitKey = stSerialKey;
+            stSerialKey++;
+        }
+        //return string with orders from the whole year!
         static public string presentAnnualOrder(bool[,] calander)
         {
-            //return string with all the orders from the year!
             bool flag = false;
             string order = "";
             for (int monthl = 0; monthl < 12; monthl++)
@@ -17,43 +30,40 @@ namespace targil_2
                     if (calander[monthl, dayl] && !flag)
                     {
                         flag = true;
-                        order += "\n start:" + (dayl + 1) + "\\" + (monthl + 1);
+                        order += "\n start:" + (dayl + 1) + "/" + (monthl + 1);
                     }
                     if (!calander[monthl, dayl] && flag)
                     {
-                        order += " end:" + dayl + "\\" + (monthl + 1);
+                        order += " end:" + dayl + "/" + (monthl + 1);
                         flag = false;
                     }
                 }
             }
             if (flag)
-                order += (" end 31/12\n");
+                order += (" end: 31/12\n");
             return order;
         }
-        public int HostingUnitKey
-        {
-            get { return _hostingUnitKey; }
-            private set { _hostingUnitKey = value; }
-        }
-        public bool[,] Diary = new bool[12, 31];
-        public HostingUnit()
-        {
-            HostingUnitKey = stSerialKey;
-            stSerialKey++;
-        }
+        
+
         public override string ToString()
         {
             return "HostingUnitKey: " + HostingUnitKey + presentAnnualOrder(this.Diary);
         }
-        public bool ApproveRequest(guestRequest guestReq)
+        public bool ApproveRequest(GuestRequest guestReq)
         {
             DateTime temp = guestReq.EntryDate;
-            while ( (this.Diary[temp.Month, temp.Day]) && (temp != guestReq.RelaeseDate) )
+            //chek if days are available (false) from enter to releas
+            while ( !this.Diary[temp.Month-1, temp.Day-1] && (temp < guestReq.ReleaseDate) )
             {
-                temp.AddDays(1);
+                temp = temp.AddDays(1);
             }
-            if (temp == guestReq.RelaeseDate)
+            if (temp == guestReq.ReleaseDate)
             {
+                //change diary to not available at those days
+                for (DateTime temp2 = guestReq.EntryDate; temp2 <= guestReq.ReleaseDate; temp2=temp2.AddDays(1))
+                {
+                    this.Diary[temp.Month - 1, temp.Day - 1] = true;
+                }
                 guestReq.IsApproved = true;
                 return true;
             }

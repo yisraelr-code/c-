@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace targil_2
 {
@@ -7,9 +8,15 @@ namespace targil_2
     {
 
         static Random rand = new Random(DateTime.Now.Millisecond);
-        private static guestRequest CreateRandomRequest()
+        private static GuestRequest CreateRandomRequest()
         {
-            guestRequest gs = new guestRequest();
+            GuestRequest gs = new GuestRequest();
+            int day = rand.Next(31);
+            int month = rand.Next(11);
+            gs.EntryDate = gs.EntryDate.AddDays(day);
+            gs.EntryDate = gs.EntryDate.AddMonths( month);
+            int x = rand.Next(2,10);
+            gs.ReleaseDate = gs.EntryDate.AddDays(x);
             //Fill randomally the Entry and Release dates of gs
             return gs;
         }
@@ -24,9 +31,9 @@ namespace targil_2
                 new Host(4, rand.Next(1,4)),
                 new Host(5, rand.Next(1,4))
             };
-            guestRequest gs1 = new guestRequest();
-            guestRequest gs2 = new guestRequest();
-            guestRequest gs3 = new guestRequest();
+            GuestRequest gs1 = new GuestRequest();
+            GuestRequest gs2 = new GuestRequest();
+            GuestRequest gs3 = new GuestRequest();
             for (int i = 0; i < 100; i++)
             {
                 foreach (var host in lsHosts)
@@ -60,7 +67,7 @@ namespace targil_2
                 //test Host IEnuramble is ok
                 foreach (HostingUnit unit in host)
                 {
-                    dict[unit.HostingUnitKey] = unit.GetAnnualBusyPrecentege();
+                    dict[unit.HostingUnitKey] = unit.GetAnnualBusyPercentage();
                 }
             }
             //get max value in dictionary
@@ -83,6 +90,7 @@ namespace targil_2
 
 
                         Console.WriteLine(host);
+                        Console.ReadKey();
                     }
                 }
             }

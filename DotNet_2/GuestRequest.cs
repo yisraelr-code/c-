@@ -1,17 +1,19 @@
-﻿using System;
+﻿
+using System;
 namespace targil_2
 {
-    class guestRequest
+    class GuestRequest
     {
         public DateTime EntryDate;
-        public DateTime RelaeseDate;
+        public DateTime ReleaseDate;
         public bool IsApproved = false;
+        
         public override string ToString()
         {
             if (IsApproved)
-                return " the request from: " + EntryDate.ToString() + " until: " + RelaeseDate.ToString() + " has approved! ";
+                return " The request from: " + EntryDate.ToString() + " until: " + ReleaseDate.ToString() + " has approved! ";
             else
-                return " the request from: " + EntryDate.ToString() + " until: " + RelaeseDate.ToString() + " has rejected! ";
+                return " The request from: " + EntryDate.ToString() + " until: " + ReleaseDate.ToString() + " has rejected! ";
         }
     }
 }

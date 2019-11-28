@@ -7,22 +7,26 @@ namespace targil_2
     class Host: IEnumerable
     {
         public long HostKey;
-        public List<HostingUnit> HostingUnitCollection;
-        public Host(long HostKey, int numOfHotingUnit)
+        public List<HostingUnit> HostingUnitCollection = new List<HostingUnit>();
+        public Host(long HostKey, int numOfHostingUnit)
         {
             this.HostKey = HostKey;
-            this.HostingUnitCollection.AddRange(new HostingUnit[numOfHotingUnit]);
+            for (int i = 0; i < numOfHostingUnit; i++)
+            {
+                HostingUnit hu = new HostingUnit();
+                this.HostingUnitCollection.Add(hu);
+            }
         }
         public override String ToString() 
         {
-            String temp = "";
+            String temp = "Host:"+this.HostKey+"\n";
             foreach (var units in HostingUnitCollection)
             {
-                temp = units.ToString() + "\n";
+                temp += units.ToString() + "\n";
             }
             return temp; 
         }
-        private long SubmitRequest(guestRequest guestReq)
+        private long SubmitRequest(GuestRequest guestReq)
         {
             foreach (var units in HostingUnitCollection)
             {
@@ -33,22 +37,24 @@ namespace targil_2
         }
         public int GetHostAnnualBusyDays() 
         {
-            int sumOfDays = 0;
+            int sumOfHosts = 0;
             foreach (var units in HostingUnitCollection)
             {
-                sumOfDays += units.GetAnnualBusyDays();
+                sumOfHosts += units.GetAnnualBusyDays();
             }
-            return sumOfDays;
+            return sumOfHosts;
         }
+
+        //sorting by capacity
         public void SortUnits() 
         {
             HostingUnitCollection.Sort();
         }
-        public bool AssignRequests(params guestRequest[] listOfRequests)
+        public bool AssignRequests(params GuestRequest[] Requests)
         {
-            for (int i = 0; i < listOfRequests.Length; i++)
+            for (int i = 0; i < Requests.Length; i++)
             {
-                if (SubmitRequest(listOfRequests[i]) == -1)
+                if (SubmitRequest(Requests[i]) == -1)
                     return false;
             }
             return true;
@@ -56,24 +62,25 @@ namespace targil_2
 
         public IEnumerator GetEnumerator()
         {
-            //this is unfinishd code, we need to implement it again.
             return HostingUnitCollection.GetEnumerator();
         }
 
-        public HostingUnit this[int serialNum]
+        public HostingUnit this[int i]
         {
             get
             {
-                foreach (var item in HostingUnitCollection)
+                if (i < this.HostingUnitCollection.Count)
                 {
-                    if (serialNum == item.HostingUnitKey)
-                        return item;
+                    int j = 0;
+                    foreach (var item in HostingUnitCollection)
+                    {
+                        if (i == j)
+                            return item;
+                        j++;
+                    }
                 }
                 return null;
             }
         }
-
-
-
     }
 }
